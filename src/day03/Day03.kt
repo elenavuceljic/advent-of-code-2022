@@ -4,17 +4,16 @@ import java.io.File
 
 fun main() {
 
-    fun prioritiseItem(it: Char) = if (it >= 'a')
-        (it - 'a' + 1)
-    else
+    fun prioritiseItem(it: Char) = if (it.isUpperCase())
         (it - 'A' + 27)
+    else
+        (it - 'a' + 1)
 
     fun part1(input: String): Int {
         val rucksacks = input.lines()
         val duplicateItems = rucksacks.flatMap {
             val (first, second) = it.chunked(it.length / 2) { it.toSet() }
-            val intersect = first.intersect(second)
-            println(intersect)
+            val intersect = first intersect second
             intersect
         }
         return duplicateItems.sumOf { prioritiseItem(it) }
